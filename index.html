@@ -93,6 +93,26 @@
   .cm-eyebrow{display:block;text-align:center;font-size:13px;font-weight:900;letter-spacing:.15em;text-transform:uppercase;color:var(--blue-deep);margin-bottom:2px}
   .cm h3{text-align:center;font-size:30px;font-weight:900;margin-bottom:12px}
   .cm-graphic img{width:100%;height:auto;display:block;border-radius:14px}
+  /* Contact form modal */
+  .cm.cm-form{max-width:480px;padding:24px 24px 26px}
+  .cm-form h3{margin-bottom:4px}
+  .cm-form .cm-sub{text-align:center;font-size:15px;font-weight:600;color:var(--ink-soft);margin-bottom:18px;line-height:1.45}
+  .cm-field{margin-bottom:14px;text-align:left}
+  .cm-field label{display:block;font-size:13px;font-weight:800;letter-spacing:.02em;margin-bottom:6px;color:var(--ink)}
+  .cm-field input,.cm-field textarea{width:100%;font-family:inherit;font-size:16px;font-weight:600;color:var(--ink);background:#fff;border:3px solid var(--ink);border-radius:12px;padding:11px 13px;box-shadow:2px 2px 0 var(--ink);transition:box-shadow .15s ease,transform .15s ease}
+  .cm-field input:focus,.cm-field textarea:focus{outline:none;box-shadow:3px 3px 0 var(--blue)}
+  .cm-field textarea{resize:vertical;min-height:96px}
+  .cm-hp{position:absolute;left:-9999px;opacity:0;height:0;width:0}
+  .cm-form .btn{width:100%;justify-content:center;margin-top:4px;cursor:pointer;border:none}
+  .cm-form .btn[disabled]{opacity:.6;cursor:default}
+  .cm-note{text-align:center;font-size:12.5px;font-weight:600;color:var(--ink-soft);margin-top:12px}
+  .cm-note a{color:var(--blue-deep);font-weight:800}
+  .cm-ok{text-align:center;padding:14px 6px 6px}
+  .cm-ok .cm-ok-badge{width:62px;height:62px;border-radius:50%;background:var(--green);border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+  .cm-ok .cm-ok-badge svg{width:32px;height:32px;stroke:#fff;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .cm-ok h3{margin-bottom:8px}
+  .cm-ok p{font-size:15.5px;font-weight:600;color:var(--ink-soft);line-height:1.5}
+  .cm-err-msg{text-align:center;font-size:13.5px;font-weight:700;color:var(--coral);margin-top:10px;min-height:1px}
 
   .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
   .step{background:#fff;border:4px solid var(--ink);border-radius:16px;box-shadow:5px 5px 0 var(--ink);padding:26px 20px}
@@ -241,7 +261,7 @@
       <div class="eyebrow" style="color:#cbeeff">Bring it to your community</div>
       <h2>Want to start a 4C Club at your school or church?</h2>
       <p>4C is built to be run by parent volunteers — with a ready-to-go curriculum of stories, teaching decks, leader guides, and collectible trading cards. Wherever you are, we'd love to help you get a club started in your community.</p>
-      <a class="btn btn-yellow btn-lg" href="mailto:matt@4cclub.org?subject=Hosting%20a%204C%20Club">Get in touch →</a>
+      <button type="button" class="btn btn-yellow btn-lg" id="contactOpen">Get in touch →</button>
     </div>
   </section>
 
@@ -290,6 +310,77 @@
     x.addEventListener("click",close);
     bd.addEventListener("click",function(e){if(e.target===bd)close();});
     document.addEventListener("keydown",function(e){if(e.key==="Escape"&&bd.classList.contains("open"))close();});
+  })();
+  </script>
+  <div class="cm-backdrop" id="contactModal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Get in touch">
+    <div class="cm cm-form">
+      <button type="button" class="cm-x" id="contactX" aria-label="Close">×</button>
+      <div id="contactFormWrap">
+        <span class="cm-eyebrow">Bring it to your community</span>
+        <h3>Let's get a club started.</h3>
+        <p class="cm-sub">Tell us a little about you and what you're thinking — we'll be in touch.</p>
+        <form id="contactForm" novalidate>
+          <div class="cm-field">
+            <label for="cf-name">Your name</label>
+            <input id="cf-name" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="cm-field">
+            <label for="cf-email">Email</label>
+            <input id="cf-email" name="email" type="email" autocomplete="email" required>
+          </div>
+          <div class="cm-field">
+            <label for="cf-msg">What are you hoping to do?</label>
+            <textarea id="cf-msg" name="message" placeholder="e.g. I'd love to start a club at my kids' school this fall…" required></textarea>
+          </div>
+          <input type="checkbox" name="botcheck" class="cm-hp" tabindex="-1" autocomplete="off">
+          <button type="submit" class="btn btn-blue btn-lg" id="cf-submit">Send →</button>
+          <div class="cm-err-msg" id="cf-error"></div>
+          <div class="cm-note">Prefer email? Reach us at <a href="mailto:matt@4cclub.org">matt@4cclub.org</a>.</div>
+        </form>
+      </div>
+      <div class="cm-ok" id="contactOk" style="display:none">
+        <div class="cm-ok-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg></div>
+        <h3>Thanks — we got it!</h3>
+        <p>We'll be in touch soon about getting a 4C Club started in your community.</p>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var ACCESS_KEY="6c88b5a6-7320-4a89-944b-8c7b28a9dc9e";
+    var bd=document.getElementById("contactModal");
+    var openBtn=document.getElementById("contactOpen");
+    var xBtn=document.getElementById("contactX");
+    var form=document.getElementById("contactForm");
+    var wrap=document.getElementById("contactFormWrap");
+    var ok=document.getElementById("contactOk");
+    var submit=document.getElementById("cf-submit");
+    var errBox=document.getElementById("cf-error");
+    var lastFocus=null;
+    function open(){lastFocus=document.activeElement;wrap.style.display="";ok.style.display="none";errBox.textContent="";bd.classList.add("open");bd.setAttribute("aria-hidden","false");document.body.style.overflow="hidden";setTimeout(function(){var n=document.getElementById("cf-name");if(n)n.focus();},60);}
+    function close(){bd.classList.remove("open");bd.setAttribute("aria-hidden","true");document.body.style.overflow="";if(lastFocus)lastFocus.focus();}
+    openBtn&&openBtn.addEventListener("click",open);
+    xBtn&&xBtn.addEventListener("click",close);
+    bd.addEventListener("click",function(e){if(e.target===bd)close();});
+    document.addEventListener("keydown",function(e){if(e.key==="Escape"&&bd.classList.contains("open"))close();});
+    form&&form.addEventListener("submit",function(e){
+      e.preventDefault();
+      errBox.textContent="";
+      var name=document.getElementById("cf-name").value.trim();
+      var email=document.getElementById("cf-email").value.trim();
+      var msg=document.getElementById("cf-msg").value.trim();
+      if(!name||!email||!msg){errBox.textContent="Please fill in your name, email, and a quick note.";return;}
+      if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){errBox.textContent="That email doesn't look quite right.";return;}
+      submit.disabled=true;submit.textContent="Sending…";
+      fetch("https://api.web3forms.com/submit",{
+        method:"POST",
+        headers:{"Content-Type":"application/json",Accept:"application/json"},
+        body:JSON.stringify({access_key:ACCESS_KEY,subject:"New 4C Club inquiry — "+name,from_name:"4C Club website",name:name,email:email,message:msg})
+      }).then(function(r){return r.json();}).then(function(d){
+        if(d&&d.success){wrap.style.display="none";ok.style.display="";}
+        else{errBox.textContent="Something went wrong sending that. Please email matt@4cclub.org.";submit.disabled=false;submit.textContent="Send →";}
+      }).catch(function(){errBox.textContent="Couldn't send just now. Please email matt@4cclub.org.";submit.disabled=false;submit.textContent="Send →";});
+    });
   })();
   </script>
 </body>
