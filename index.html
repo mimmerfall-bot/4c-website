@@ -335,7 +335,6 @@
           <input type="checkbox" name="botcheck" class="cm-hp" tabindex="-1" autocomplete="off">
           <button type="submit" class="btn btn-blue btn-lg" id="cf-submit">Send →</button>
           <div class="cm-err-msg" id="cf-error"></div>
-          <div class="cm-note">Prefer email? Reach us at <a href="mailto:matt@4cclub.org">matt@4cclub.org</a>.</div>
         </form>
       </div>
       <div class="cm-ok" id="contactOk" style="display:none">
@@ -378,8 +377,8 @@
         body:JSON.stringify({access_key:ACCESS_KEY,subject:"New 4C Club inquiry — "+name,from_name:"4C Club website",name:name,email:email,message:msg})
       }).then(function(r){return r.json();}).then(function(d){
         if(d&&d.success){wrap.style.display="none";ok.style.display="";}
-        else{errBox.textContent="Something went wrong sending that. Please email matt@4cclub.org.";submit.disabled=false;submit.textContent="Send →";}
-      }).catch(function(){errBox.textContent="Couldn't send just now. Please email matt@4cclub.org.";submit.disabled=false;submit.textContent="Send →";});
+        else{errBox.textContent="Something went wrong sending that. Please try again.";submit.disabled=false;submit.textContent="Send →";}
+      }).catch(function(){errBox.textContent="Couldn't send just now — please try again in a moment.";submit.disabled=false;submit.textContent="Send →";});
     });
   })();
   </script>
