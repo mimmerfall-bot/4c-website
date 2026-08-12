@@ -181,12 +181,21 @@
   .calc{margin-top:34px;background:#fff;border:4px solid var(--ink);border-radius:18px;box-shadow:6px 6px 0 var(--ink);padding:24px 24px 20px;max-width:660px}
   .calc .wl{font-size:15px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-deep);margin-bottom:4px}
   .calc-sub{font-size:14.5px;font-weight:600;color:var(--ink-soft);line-height:1.45}
-  .calc-controls{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;margin:18px 0 8px}
+  .calc-controls{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;margin:18px 0 6px}
+  .calc-hint{font-size:12.5px;font-weight:600;color:var(--ink-soft);margin:2px 0 10px;line-height:1.4}
+  .calc-checks{display:flex;flex-wrap:wrap;gap:10px 18px;margin-bottom:4px}
   .calc-kids{font-weight:800;font-size:15px;display:flex;align-items:center;gap:10px}
   .calc-kids input{width:92px;font:inherit;font-weight:800;font-size:16px;border:3px solid var(--ink);border-radius:10px;padding:7px 10px;box-shadow:2px 2px 0 var(--ink)}
   .calc-toggle{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14.5px;color:var(--ink);cursor:pointer}
   .calc-toggle input{width:18px;height:18px;accent-color:var(--blue)}
-  .calc-tag{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;background:var(--yellow);color:var(--ink);border:2px solid var(--ink);border-radius:20px;padding:2px 8px}
+  .calc-note{position:relative;display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;color:var(--ink);background:#fff;border:2px solid var(--ink);border-radius:20px;padding:2px 9px 2px 8px;cursor:help;white-space:nowrap;box-shadow:2px 2px 0 var(--ink);vertical-align:middle}
+  .calc-note .dot{width:8px;height:8px;border-radius:50%;flex:none}
+  .calc-note.n-lunch .dot{background:var(--green)}
+  .calc-note.n-local .dot{background:var(--blue)}
+  .calc-note .tip{position:absolute;left:50%;bottom:calc(100% + 11px);width:238px;background:var(--ink);color:#fff;border-radius:12px;padding:11px 13px;font-size:12.5px;font-weight:600;line-height:1.45;letter-spacing:0;text-transform:none;box-shadow:4px 4px 0 rgba(0,0,0,.18);opacity:0;visibility:hidden;transform:translateX(-50%) translateY(4px);transition:opacity .14s ease,transform .14s ease;z-index:30;pointer-events:none;white-space:normal;text-align:left}
+  .calc-note .tip::after{content:"";position:absolute;left:50%;top:100%;transform:translateX(-50%);border:7px solid transparent;border-top-color:var(--ink)}
+  .calc-note:hover .tip,.calc-note:focus-visible .tip,.calc-note.open .tip{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  @media (max-width:560px){.calc-note .tip{width:200px}}
   .calc-lines{margin-top:10px;border-top:2px solid #ece3cf}
   .calc-line{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:2px solid #f3edde;font-weight:600;font-size:15px;color:var(--ink-soft)}
   .calc-line b{color:var(--ink);font-weight:800;white-space:nowrap}
@@ -309,7 +318,7 @@
         <div class="wit-card">
           <div class="wl">The budget</div>
           <h3>Lower than you’d think.</h3>
-          <p>The content is free — the only costs are the essentials: printed trading cards, the chips, and t‑shirts. A shared lunch is a favorite with the kids — well worth finding a parent or two to underwrite. <span class="em">Use the estimator below</span> to see what your club would run.</p>
+          <p>The content is free. Everything beyond that is <span class="em">suggested, not required</span> — the trading cards, chips, and t‑shirts are encouraged and make the club shine, but they’re discretionary if budget is tight. A shared lunch is a favorite with the kids, well worth finding a parent or two to underwrite. <span class="em">Use the estimator below</span> to build a budget that fits.</p>
         </div>
         <div class="wit-card">
           <div class="wl">The time</div>
@@ -327,12 +336,18 @@
         <p class="calc-sub">Enter your total number of kids — it scales by classroom (e.g., four 4th‑grade classes ≈ 4×).</p>
         <div class="calc-controls">
           <label class="calc-kids">Total kids <input type="number" id="calcKids" min="1" value="50" inputmode="numeric"></label>
-          <label class="calc-toggle"><input type="checkbox" id="calcLunch" checked> Weekly lunch <span class="calc-tag">kids love it</span></label>
-          <label class="calc-toggle"><input type="checkbox" id="calcRec" checked> Weekly recognition</label>
+        </div>
+        <p class="calc-hint">Everything below is suggested &amp; encouraged — uncheck anything your budget can’t cover this semester.</p>
+        <div class="calc-checks">
+          <label class="calc-toggle"><input type="checkbox" id="ckCards" checked> Trading cards</label>
+          <label class="calc-toggle"><input type="checkbox" id="ckChips" checked> Chips</label>
+          <label class="calc-toggle"><input type="checkbox" id="ckShirts" checked> T‑shirts <span class="calc-note n-local" role="button" tabindex="0" aria-label="Why t-shirts are ordered locally"><span class="dot"></span>Ordered locally<span class="tip">T‑shirts are printed through a local shop — so your budget also supports a small business right in your own community.</span></span></label>
+          <label class="calc-toggle"><input type="checkbox" id="ckRec" checked> Weekly recognition</label>
+          <label class="calc-toggle"><input type="checkbox" id="ckLunch" checked> Weekly lunch <span class="calc-note n-lunch" role="button" tabindex="0" aria-label="Why weekly lunch matters"><span class="dot"></span>Why it matters<span class="tip">We think lunch is a great value‑add — most parents are happy to chip in, and they’re already paying for some form of lunch anyway. It’s the moment the kids look forward to most.</span></span></label>
         </div>
         <div class="calc-lines" id="calcLines"></div>
         <div class="calc-total"><span>Estimated first semester</span><strong id="calcTotal">$0</strong></div>
-        <p class="calc-foot">Trading cards, chips &amp; t‑shirts are the essentials. Chips &amp; shirts are one‑time, so later semesters cost less. Recognition is an estimate based on the awards model; a weekly lunch is a big hit with the kids and well worth underwriting.</p>
+        <p class="calc-foot">Everything here is suggested and encouraged — the club still works if budget means trimming. Chips &amp; shirts are one‑time, so later semesters cost less; recognition is an estimate based on the awards model.</p>
       </div>
       <div class="wit-start">
         <div class="wl">How to get it started</div>
@@ -477,30 +492,38 @@
   <script>
   (function(){
     var kids=document.getElementById('calcKids');
-    var lunch=document.getElementById('calcLunch');
-    var rec=document.getElementById('calcRec');
+    if(!kids)return;
     var linesEl=document.getElementById('calcLines');
     var totalEl=document.getElementById('calcTotal');
-    if(!kids)return;
+    var map=[
+      {id:'ckCards',l:'Trading cards (4 \u00d7 $0.47)',per:1.88},
+      {id:'ckChips',l:'Character chips',per:1},
+      {id:'ckShirts',l:'T\u2011shirts',per:13},
+      {id:'ckRec',l:'Weekly recognition (gift cards)',per:12},
+      {id:'ckLunch',l:'Weekly lunch (4 \u00d7 $10)',per:40}
+    ];
+    var els=map.map(function(m){return document.getElementById(m.id);});
     function money(n){return '$'+Math.round(n).toLocaleString('en-US');}
     function render(){
       var n=Math.max(0,parseInt(kids.value,10)||0);
-      var items=[
-        {l:'Trading cards (4 \u00d7 $0.47)',per:1.88,on:true},
-        {l:'Character chips',per:1,on:true},
-        {l:'T\u2011shirts',per:13,on:true},
-        {l:'Weekly recognition (gift cards)',per:12,on:rec.checked},
-        {l:'Weekly lunch (4 \u00d7 $10)',per:40,on:lunch.checked}
-      ];
       var total=0,html='';
-      items.forEach(function(it){
-        var amt=n*it.per; if(it.on)total+=amt;
-        html+='<div class="calc-line'+(it.on?'':' off')+'"><span>'+it.l+'</span><b>'+money(amt)+'</b></div>';
+      map.forEach(function(m,i){
+        var on=els[i].checked, amt=n*m.per; if(on)total+=amt;
+        html+='<div class="calc-line'+(on?'':' off')+'"><span>'+m.l+'</span><b>'+money(amt)+'</b></div>';
       });
       linesEl.innerHTML=html; totalEl.textContent=money(total);
     }
-    [kids,lunch,rec].forEach(function(el){el.addEventListener('input',render);el.addEventListener('change',render);});
+    [kids].concat(els).forEach(function(el){el.addEventListener('input',render);el.addEventListener('change',render);});
     render();
+  })();
+  (function(){
+    var notes=document.querySelectorAll('.calc-note'); if(!notes.length)return;
+    function closeAll(except){notes.forEach(function(n){if(n!==except)n.classList.remove('open');});}
+    notes.forEach(function(n){
+      n.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();var was=n.classList.contains('open');closeAll(n);n.classList.toggle('open',!was);});
+      n.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();e.stopPropagation();var was=n.classList.contains('open');closeAll(n);n.classList.toggle('open',!was);}});
+    });
+    document.addEventListener('click',function(){closeAll(null);});
   })();
   </script>
 </body>
