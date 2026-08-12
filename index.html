@@ -184,6 +184,12 @@
   .calc-controls{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;margin:18px 0 6px}
   .calc-hint{font-size:12.5px;font-weight:600;color:var(--ink-soft);margin:2px 0 10px;line-height:1.4}
   .calc-checks{display:flex;flex-wrap:wrap;gap:10px 18px;margin-bottom:4px}
+  .calc-essentials{margin:2px 0 4px}
+  .ce-label{display:block;font-size:11.5px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+  .ce-items{display:flex;flex-wrap:wrap;gap:10px}
+  .ce-pill{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:14.5px;color:var(--ink);background:#f1f8f1;border:2px solid var(--ink);border-radius:20px;padding:5px 12px}
+  .ce-pill .dot{width:9px;height:9px;border-radius:50%;background:var(--green);flex:none}
+  .calc-optlabel{display:block;font-size:11.5px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--blue-deep);margin:16px 0 8px}
   .calc-kids{font-weight:800;font-size:15px;display:flex;align-items:center;gap:10px}
   .calc-kids input{width:92px;font:inherit;font-weight:800;font-size:16px;border:3px solid var(--ink);border-radius:10px;padding:7px 10px;box-shadow:2px 2px 0 var(--ink)}
   .calc-toggle{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14.5px;color:var(--ink);cursor:pointer}
@@ -200,6 +206,7 @@
   .calc-line{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:2px solid #f3edde;font-weight:600;font-size:15px;color:var(--ink-soft)}
   .calc-line b{color:var(--ink);font-weight:800;white-space:nowrap}
   .calc-line.off{opacity:.4;text-decoration:line-through}
+  .calc-ess{display:inline-block;font-style:normal;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--green);border:1.5px solid var(--green);border-radius:20px;padding:1px 7px;margin-left:9px;vertical-align:middle}
   .calc-total{display:flex;justify-content:space-between;align-items:center;margin-top:14px;background:var(--blue);color:#fff;border:3px solid var(--ink);border-radius:12px;box-shadow:3px 3px 0 var(--ink);padding:11px 16px;font-weight:800;font-size:16px}
   .calc-total strong{font-size:25px;font-weight:900}
   .calc-foot{font-size:12.5px;font-weight:600;color:var(--ink-soft);margin-top:12px;line-height:1.45}
@@ -318,7 +325,7 @@
         <div class="wit-card">
           <div class="wl">The budget</div>
           <h3>Lower than you’d think.</h3>
-          <p>The content is free. Everything beyond that is <span class="em">suggested, not required</span> — the trading cards, chips, and t‑shirts are encouraged and make the club shine, but they’re discretionary if budget is tight. A shared lunch is a favorite with the kids, well worth finding a parent or two to underwrite. <span class="em">Use the estimator below</span> to build a budget that fits.</p>
+          <p>The content is free. The two essentials are <span class="em">trading cards and character chips</span> — every kid gets them. Everything beyond that is suggested and encouraged: t‑shirts, weekly recognition, and a shared lunch make the club shine but stay discretionary if budget is tight. <span class="em">Use the estimator below</span> to build a budget that fits.</p>
         </div>
         <div class="wit-card">
           <div class="wl">The time</div>
@@ -337,28 +344,33 @@
         <div class="calc-controls">
           <label class="calc-kids">Total kids <input type="number" id="calcKids" min="1" value="50" inputmode="numeric"></label>
         </div>
-        <p class="calc-hint">Everything below is suggested &amp; encouraged — uncheck anything your budget can’t cover this semester.</p>
+        <div class="calc-essentials">
+          <span class="ce-label">Essentials — every kid gets these</span>
+          <div class="ce-items">
+            <span class="ce-pill"><span class="dot"></span>Trading cards</span>
+            <span class="ce-pill"><span class="dot"></span>Character chips</span>
+          </div>
+        </div>
+        <span class="calc-optlabel">Suggested &amp; encouraged — uncheck anything budget can’t cover</span>
         <div class="calc-checks">
-          <label class="calc-toggle"><input type="checkbox" id="ckCards" checked> Trading cards</label>
-          <label class="calc-toggle"><input type="checkbox" id="ckChips" checked> Chips</label>
           <label class="calc-toggle"><input type="checkbox" id="ckShirts" checked> T‑shirts <span class="calc-note n-local" role="button" tabindex="0" aria-label="Why t-shirts are ordered locally"><span class="dot"></span>Ordered locally<span class="tip">T‑shirts are printed through a local shop — so your budget also supports a small business right in your own community.</span></span></label>
           <label class="calc-toggle"><input type="checkbox" id="ckRec" checked> Weekly recognition</label>
-          <label class="calc-toggle"><input type="checkbox" id="ckLunch" checked> Weekly lunch <span class="calc-note n-lunch" role="button" tabindex="0" aria-label="Why weekly lunch matters"><span class="dot"></span>Why it matters<span class="tip">We think lunch is a great value‑add — most parents are happy to chip in, and they’re already paying for some form of lunch anyway. It’s the moment the kids look forward to most.</span></span></label>
+          <label class="calc-toggle"><input type="checkbox" id="ckLunch" checked> Weekly lunch <span class="calc-note n-lunch" role="button" tabindex="0" aria-label="Why weekly lunch matters"><span class="dot"></span>Why it matters<span class="tip">We think lunch is a great value‑add — most parents are happy to chip in, and they’re already paying for some form of lunch anyway. It’s also a great draw that gets kids excited to show up each week.</span></span></label>
         </div>
         <div class="calc-lines" id="calcLines"></div>
         <div class="calc-total"><span>Estimated first semester</span><strong id="calcTotal">$0</strong></div>
-        <p class="calc-foot">Everything here is suggested and encouraged — the club still works if budget means trimming. Chips &amp; shirts are one‑time, so later semesters cost less; recognition is an estimate based on the awards model.</p>
+        <p class="calc-foot">Trading cards and chips are the essentials — every kid gets them. The rest is suggested and encouraged, so trim if budget is tight. Chips &amp; shirts are one‑time, so later semesters cost less; recognition is an estimate based on the awards model.</p>
       </div>
       <div class="wit-start">
         <div class="wl">How to get it started</div>
         <div class="wit-steps">
           <div class="wit-step"><span class="wsn">1</span><p>See if your school, church, or community is open to the idea.</p></div>
-          <div class="wit-step"><span class="wsn">2</span><p>Talk with the principal or director to get a green light.</p></div>
+          <div class="wit-step"><span class="wsn">2</span><p>Talk with your org’s leadership to get a green light.</p></div>
           <div class="wit-step"><span class="wsn">3</span><p>Pick a semester and line up your facilitator and helpers.</p></div>
           <div class="wit-step"><span class="wsn">4</span><p>Run your first four weeks — everything you need is ready.</p></div>
         </div>
       </div>
-      <div class="wit-dl"><a class="btn btn-blue btn-lg" href="/4C-Club-Principal-Overview.pdf" download>↓ One-page overview for your principal</a></div>
+      <div class="wit-dl"><a class="btn btn-blue btn-lg" href="/4C-Club-Principal-Overview.pdf" download>↓ One-page overview for your leadership</a></div>
       <p class="wit-note">4C runs today as a faith‑based club and fits naturally in churches, Christian schools, and after‑school settings. We know kids come from all kinds of schools, though — if you’re looking for a <strong>character‑first version without the faith emphasis</strong>, reach out and we’ll talk it through.</p>
     </div>
   </section>
@@ -496,8 +508,8 @@
     var linesEl=document.getElementById('calcLines');
     var totalEl=document.getElementById('calcTotal');
     var map=[
-      {id:'ckCards',l:'Trading cards (4 \u00d7 $0.47)',per:1.88},
-      {id:'ckChips',l:'Character chips',per:1},
+      {id:'ckCards',l:'Trading cards (4 \u00d7 $0.47)',per:1.88,essential:true},
+      {id:'ckChips',l:'Character chips',per:1,essential:true},
       {id:'ckShirts',l:'T\u2011shirts',per:13},
       {id:'ckRec',l:'Weekly recognition (gift cards)',per:12},
       {id:'ckLunch',l:'Weekly lunch (4 \u00d7 $10)',per:40}
@@ -508,12 +520,13 @@
       var n=Math.max(0,parseInt(kids.value,10)||0);
       var total=0,html='';
       map.forEach(function(m,i){
-        var on=els[i].checked, amt=n*m.per; if(on)total+=amt;
-        html+='<div class="calc-line'+(on?'':' off')+'"><span>'+m.l+'</span><b>'+money(amt)+'</b></div>';
+        var on=m.essential?true:els[i].checked, amt=n*m.per; if(on)total+=amt;
+        var tag=m.essential?'<i class="calc-ess">essential</i>':'';
+        html+='<div class="calc-line'+(on?'':' off')+'"><span>'+m.l+tag+'</span><b>'+money(amt)+'</b></div>';
       });
       linesEl.innerHTML=html; totalEl.textContent=money(total);
     }
-    [kids].concat(els).forEach(function(el){el.addEventListener('input',render);el.addEventListener('change',render);});
+    [kids].concat(els.filter(Boolean)).forEach(function(el){el.addEventListener('input',render);el.addEventListener('change',render);});
     render();
   })();
   (function(){
